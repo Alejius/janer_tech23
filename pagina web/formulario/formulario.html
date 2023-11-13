@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Add Material CSS, replace Bootstrap CSS -->
+    <link href="assets/css/material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <title>Google Sheets</title>
+</head>
+<body>
+
+<div class="container border mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 mb-5">
+            <h2 class="text-center mt-3">PUNTAJE JANER TECH 2023 <hr></h2>
+        </div>
+
+        <div class="col-md-5">
+            <form name="my-google-sheet" action="https://script.google.com/macros/s/AKfycbxpjpcDHNt83_GCjDppxWZ3Jcn1a4PMBQD_UhDjkAXs0hU2dyrjPYgVr4Luxny0kd7K/exec" method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" name="Nombre" class="form-control" required>
+                    <small id="emailHelp" class="form-text text-muted">Campo obligatorio.</small>
+                </div>
+                <div class="form-group">
+                    <label for="Curso">Curso</label>
+                    <input type="text" name="Curso" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="Puntaje">Puntaje</label>
+                    <input type="text" name="Puntaje" class="form-control" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="ID">juego</label>
+                    <input type="text" name="ID" class="form-control" readonly>
+                </div>
+
+                <div class="form-group mb-5 text-center mt-5">
+                    <button type="submit" class="btn btn-primary btn-sm">Enviar Formulario</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5">
+            <img src="assets/imgs/LOGOS.png" alt="" class="img-fluid">
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="assets/js/material.min.js"></script>
+
+<script>
+    // Llamamos a calcularPuntaje automáticamente al cargar la página.
+    calcularPuntaje();
+
+    function calcularPuntaje() {
+        // Obtener la puntuación del localStorage
+        var score = localStorage.getItem('score');
+
+        // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
+        document.forms["my-google-sheet"]["Puntaje"].value = score;
+
+        // Obtener ID del localStorage
+        var id = localStorage.getItem('ID');
+
+        // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
+        document.forms["my-google-sheet"]["ID"].value = id;
+    }
+
+    document.forms["my-google-sheet"].addEventListener("submit", function (event) {
+        // Evitar que el formulario se envíe de forma predeterminada
+        event.preventDefault();
+
+        // Mostrar alert "Esperando"
+        alert("Esperando...");
+
+        // Enviar el formulario a Google Sheets usando fetch
+        fetch(this.action, {
+            method: this.method,
+            body: new FormData(this),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Muestra un mensaje de éxito
+            alert("Formulario enviado exitosamente a Google Sheets");
+
+            // Puedes redirigir a la página index.html después de enviar el formulario
+            window.location.href = "../juegos.html";
+        })
+        .catch(error => {
+            // Manejar errores, por ejemplo, mostrando un mensaje de error
+            alert("Error al enviar el formulario a Google Sheets");
+            console.error(error);
+        });
+    });
+
+
+</script>
+
+</body>
+</html>
