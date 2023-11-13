@@ -25,7 +25,7 @@ var gameOver = false;
 var score= 0;
 
 //delay
-
+var ID = "snake";
 var delayInMilliseconds = 2000; 
 
 // Restricción de zoom al 80%
