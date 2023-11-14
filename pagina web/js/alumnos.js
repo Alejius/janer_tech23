@@ -20,6 +20,16 @@ const alumnos = [
         "correo":"mciannello@janer.esc.edu.ar",
         "imagen": "messi.jpg"
         
+    },
+    {
+        "apellido": "Iannello",
+        "nombre": "María Cecilia",
+        "titulo":"Diseñadora Multimedial",
+        "descripcion":"Me especializo en Desarrollo...",
+        "cv": "url al cv",
+        "correo":"mciannello@janer.esc.edu.ar",
+        "imagen": "messi.jpg"
+        
     }
 ]
 
@@ -31,7 +41,7 @@ var tarjeta= document.getElementById("tarjeta")
 // var apellido= document.getElementById("titulo");
 
 alumnos.forEach(alumno => {
-    // console.log (alumno)
+    console.log (alumno)
     tarjeta.innerHTML= "<div class='card mb-3' style='max-width: 540px;'>"+
    " <div class='row g-0'>"+
       "<div class='col-md-4'>"+
