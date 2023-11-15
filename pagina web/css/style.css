@@ -2,6 +2,8 @@ body{
     background-color: rgb(14, 14, 14);
     display: flex;
     flex-direction: column;
+    margin: 0;
+    margin-bottom: 40px;
 }
 
 main{
@@ -35,10 +37,7 @@ html {
   min-height: 100%;
   position: relative;
 }
-body {
-  margin: 0;
-  margin-bottom: 40px;
-}
+
 
 #tarjeta{
     display: flex;
