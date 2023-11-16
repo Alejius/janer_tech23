@@ -7,7 +7,7 @@ let sound_die = new Audio('sounds effect/die.mp3');
 // getting bird element properties
 let bird_props = bird.getBoundingClientRect();
 var score = 0;
-var delayInMilliseconds = 2000; 
+var delayInMilliseconds = 0; 
 
 // This method returns DOMReact -> top, right, bottom, left, x, y, width and height
 let background = document.querySelector('.background').getBoundingClientRect();
