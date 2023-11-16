@@ -58,31 +58,46 @@
 
 <script>
     // Llamamos a calcularPuntaje automáticamente al cargar la página.
+    // Llamamos a calcularPuntaje automáticamente al cargar la página.
     calcularPuntaje();
 
     function calcularPuntaje() {
         // Obtener la puntuación del localStorage
         var score = localStorage.getItem('score');
-
+    
         // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
         document.forms["my-google-sheet"]["Puntaje"].value = score;
-
+    
         // Obtener ID del localStorage
         var id = localStorage.getItem('ID');
-
+    
         // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
         document.forms["my-google-sheet"]["ID"].value = id;
     }
-
+    
     document.forms["my-google-sheet"].addEventListener("submit", function (event) {
         // Evitar que el formulario se envíe de forma predeterminada
         event.preventDefault();
+    
+        // Desactivar todos los elementos del formulario
+        var formElements = this.elements;
+        for (var i = 0; i < formElements.length; i++) {
+            formElements[i].disabled = true;
+        }
+    
+        // Mostrar alert "Esperando"
+        alert("Esperando...");
+    
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
             method: this.method,
             body: new FormData(this),
+        })
+        .then(response => response.json())
+        .then(data => {
             // Muestra un mensaje de éxito
             alert("Formulario enviado exitosamente a Google Sheets");
+    
             // Puedes redirigir a la página index.html después de enviar el formulario
             window.location.href = "../juegos.html";
         })
@@ -90,6 +105,12 @@
             // Manejar errores, por ejemplo, mostrando un mensaje de error
             alert("Error al enviar el formulario a Google Sheets");
             console.error(error);
+        })
+        .finally(() => {
+            // Volver a habilitar todos los elementos del formulario después de completar la operación
+            for (var i = 0; i < formElements.length; i++) {
+                formElements[i].disabled = false;
+            }
         });
     });
 
