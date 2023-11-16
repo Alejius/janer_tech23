@@ -75,7 +75,7 @@ function Start() {
     document.addEventListener("keydown", HandleKeyDown);
 }
 
-var delayInMilliseconds = 2000; //1 second
+var delayInMilliseconds = 0; //1 second
 
 
 function Update() {
