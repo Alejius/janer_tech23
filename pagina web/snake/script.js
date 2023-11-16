@@ -26,7 +26,7 @@ var score= 0;
 
 //delay
 var ID = "snake";
-var delayInMilliseconds = 2000; 
+var delayInMilliseconds = 5; 
 
 // Restricción de zoom al 80%
 function toggleZoomScreen() {
@@ -124,15 +124,27 @@ function update() {
 
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
-            gameOver = true;
-            // SE AGREGA LA VARIABLE SCORE A EL GAMEOVER + EL TEXTO
-            mensaje.innerHTML= "Tu puntaje fue de "+score+" puntos";
-
-            mensaje.innerHTML= "Tu puntaje fue de "+score+" puntos";
-            
-        }
-        
-    }
+        gameOver = true;
+        // SE AGREGA LA VARIABLE SCORE A EL GAMEOVER + EL TEXTO
+        //alert("Game Over" +" tu puntaje es de "+score+" puntos");
+        board.style.display="none";
+        mensaje.style.color="red";
+        mensaje.style.fontSize = "2cm";
+        mensaje.style.padding = "200px";
+        mensaje.innerHTML= "Game Over" +" tu puntaje es de "+score+" puntos";
+        console.log(score)
+          
+        setTimeout(function() {
+    
+            // Redirigir a otro archivo HTML (cambia 'otro_archivo.html' por la ruta correcta)
+            window.location.href = '../formulario/formulario.html';
+    
+            // Exportar la variable score al localStorage para usarla en otro archivo HTML
+            localStorage.setItem('score', score);
+    
+            localStorage.setItem('ID', ID);
+    
+        }, delayInMilliseconds);
 
    
     
