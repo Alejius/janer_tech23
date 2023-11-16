@@ -84,10 +84,6 @@
         for (var i = 0; i < formElements.length; i++) {
             formElements[i].disabled = true;
         }
-    
-        // Mostrar alert "Esperando"
-        alert("Esperando...");
-    
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
             method: this.method,
