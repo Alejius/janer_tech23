@@ -77,20 +77,12 @@
     document.forms["my-google-sheet"].addEventListener("submit", function (event) {
         // Evitar que el formulario se envíe de forma predeterminada
         event.preventDefault();
-
-        // Mostrar alert "Esperando"
-        alert("Esperando...");
-
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
             method: this.method,
             body: new FormData(this),
-        })
-        .then(response => response.json())
-        .then(data => {
             // Muestra un mensaje de éxito
             alert("Formulario enviado exitosamente a Google Sheets");
-
             // Puedes redirigir a la página index.html después de enviar el formulario
             window.location.href = "../juegos.html";
         })
