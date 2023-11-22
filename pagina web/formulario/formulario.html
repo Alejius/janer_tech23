@@ -79,11 +79,7 @@
         // Evitar que el formulario se envíe de forma predeterminada
         event.preventDefault();
     
-        // Desactivar todos los elementos del formulario
-        var formElements = this.elements;
-        for (var i = 0; i < formElements.length; i++) {
-            formElements[i].disabled = true;
-        }
+
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
             method: this.method,
