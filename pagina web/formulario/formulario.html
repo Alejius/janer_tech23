@@ -60,26 +60,36 @@
     // Llamamos a calcularPuntaje automáticamente al cargar la página.
     calcularPuntaje();
 
+    // Variable de estado para controlar si el formulario ya se ha enviado
+    var formularioEnviado = false;
+
     function calcularPuntaje() {
         // Obtener la puntuación del localStorage
         var score = localStorage.getItem('score');
-
+    
         // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
         document.forms["my-google-sheet"]["Puntaje"].value = score;
-
+    
         // Obtener ID del localStorage
         var id = localStorage.getItem('ID');
-
+    
         // Mostrar el puntaje en el campo de entrada y enviarlo al formulario.
         document.forms["my-google-sheet"]["ID"].value = id;
     }
-
+    
     document.forms["my-google-sheet"].addEventListener("submit", function (event) {
+        // Evitar que el formulario se envíe si ya se ha enviado antes
+        if (formularioEnviado) {
+            alert("El formulario ya se ha enviado.");
+            event.preventDefault();
+            return;
+        }
+
         // Evitar que el formulario se envíe de forma predeterminada
         event.preventDefault();
 
-        // Mostrar alert "Esperando"
-        alert("Esperando...");
+        // Marcar el formulario como enviado
+        formularioEnviado = true;
 
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
@@ -90,7 +100,7 @@
         .then(data => {
             // Muestra un mensaje de éxito
             alert("Formulario enviado exitosamente a Google Sheets");
-
+    
             // Puedes redirigir a la página index.html después de enviar el formulario
             window.location.href = "../juegos.html";
         })
@@ -98,10 +108,12 @@
             // Manejar errores, por ejemplo, mostrando un mensaje de error
             alert("Error al enviar el formulario a Google Sheets");
             console.error(error);
+        })
+        .finally(() => {
+            // Volver a habilitar todos los elementos del formulario después de completar la operación
+            formularioEnviado = false; // Restablecer la variable de estado
         });
     });
-
-
 </script>
 
 </body>
