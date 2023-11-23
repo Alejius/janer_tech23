@@ -58,8 +58,10 @@
 
 <script>
     // Llamamos a calcularPuntaje automáticamente al cargar la página.
-    // Llamamos a calcularPuntaje automáticamente al cargar la página.
     calcularPuntaje();
+
+    // Variable de estado para controlar si el formulario ya se ha enviado
+    var formularioEnviado = false;
 
     function calcularPuntaje() {
         // Obtener la puntuación del localStorage
@@ -76,9 +78,18 @@
     }
     
     document.forms["my-google-sheet"].addEventListener("submit", function (event) {
+        // Evitar que el formulario se envíe si ya se ha enviado antes
+        if (formularioEnviado) {
+            alert("El formulario ya se ha enviado.");
+            event.preventDefault();
+            return;
+        }
+
         // Evitar que el formulario se envíe de forma predeterminada
         event.preventDefault();
-    
+
+        // Marcar el formulario como enviado
+        formularioEnviado = true;
 
         // Enviar el formulario a Google Sheets usando fetch
         fetch(this.action, {
@@ -100,13 +111,9 @@
         })
         .finally(() => {
             // Volver a habilitar todos los elementos del formulario después de completar la operación
-            for (var i = 0; i < formElements.length; i++) {
-                formElements[i].disabled = false;
-            }
+            formularioEnviado = false; // Restablecer la variable de estado
         });
     });
-
-
 </script>
 
 </body>
